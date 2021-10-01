@@ -23,7 +23,7 @@ export default class Response {
 
     if (this.error) {
       if (this.error.code in errors) {
-        throw new errors[this.error.code]();
+        throw new errors[this.error.code](this.error.code, this.error.message);
       }
 
       throw new GeneralError(this.error.code, this.error.message);
