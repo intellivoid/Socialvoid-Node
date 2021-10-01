@@ -1,9 +1,9 @@
 import { readFile, writeFileSync } from "fs";
-import { SocialvoidClient } from "./client";
+import Client from "./Client";
 
-class Session {
+export default class Session {
   constructor(
-    public client: SocialvoidClient,
+    private client: Client,
     public publicHash?: string,
     public privateHash?: string,
     public sessionId?: string,
@@ -32,9 +32,9 @@ class Session {
     });
   }
 
-  save(fileName: string) {
+  save(file: string) {
     writeFileSync(
-      fileName,
+      file,
       JSON.stringify({
         public_hash: this.publicHash,
         private_hash: this.privateHash,

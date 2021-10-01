@@ -3,14 +3,11 @@ import errors, { GeneralError } from "./errors";
 export default class Response {
   id: number;
   success: boolean;
-  data: any;
   error?: { code: number; message: string };
 
-  constructor(public body: string) {
-    const data = JSON.parse(body);
-
-    if (!data.id) {
-      throw new Error(`Got invalid body: ${body}`);
+  constructor(public data: any) {
+    if (!this.data.id) {
+      throw new Error(`Got invalid data: ${data}`);
     }
 
     this.id = data.id;
