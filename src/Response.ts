@@ -1,4 +1,4 @@
-import errors, { GeneralError } from "./errors";
+import { GeneralError, map } from "./errors";
 
 export default class Response {
   id: number;
@@ -22,8 +22,8 @@ export default class Response {
     }
 
     if (this.error) {
-      if (this.error.code in errors) {
-        throw new errors[this.error.code](this.error.code, this.error.message);
+      if (this.error.code in map) {
+        throw new map[this.error.code](this.error.code, this.error.message);
       }
 
       throw new GeneralError(this.error.code, this.error.message);

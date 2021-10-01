@@ -1,21 +1,13 @@
 import GeneralError from "./GeneralError";
 
-class JSONRPCError extends GeneralError {}
+export class JSONRPCError extends GeneralError {}
 
-class ParseError extends JSONRPCError {}
+export class ParseError extends JSONRPCError {}
 
-class InvalidRequest extends JSONRPCError {}
+export class InvalidRequest extends JSONRPCError {}
 
-class MethodNotFound extends JSONRPCError {}
+export class MethodNotFound extends JSONRPCError {}
 
-class InvalidParams extends JSONRPCError {}
+export class InvalidParams extends JSONRPCError {}
 
-class InternalError extends JSONRPCError {}
-
-export default {
-  "-32700": ParseError,
-  "-32600": InvalidRequest,
-  "-32601": MethodNotFound,
-  "-32602": InvalidParams,
-  "-32603": InternalError,
-};
+export class InternalError extends JSONRPCError {}
