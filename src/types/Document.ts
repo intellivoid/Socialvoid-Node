@@ -1,6 +1,6 @@
-import BaseClass from "./BaseClass";
+import Base from "./Base";
 
-export default class Document extends BaseClass {
+export default class Document extends Base {
   constructor(
     public id: string,
     public fileMime: string,

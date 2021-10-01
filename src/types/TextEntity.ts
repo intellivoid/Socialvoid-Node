@@ -1,6 +1,6 @@
-import BaseClass from "./BaseClass";
+import Base from "./Base";
 
-export default class TextEntity extends BaseClass {
+export default class TextEntity extends Base {
   constructor(
     public type: string,
     public offset: number,

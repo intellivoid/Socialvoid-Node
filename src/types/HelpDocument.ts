@@ -1,7 +1,7 @@
-import BaseClass from "./BaseClass";
+import Base from "./Base";
 import TextEntity from "./TextEntity";
 
-export default class HelpDocument extends BaseClass {
+export default class HelpDocument extends Base {
   constructor(
     public id: string,
     public text: string,

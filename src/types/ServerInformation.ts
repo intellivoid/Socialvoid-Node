@@ -1,6 +1,6 @@
-import BaseClass from "./BaseClass";
+import Base from "./Base";
 
-export default class ServerInformation extends BaseClass {
+export default class ServerInformation extends Base {
   constructor(
     public networkName: string,
     public protocolVersion: string,
