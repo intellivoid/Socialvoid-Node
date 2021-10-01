@@ -4,10 +4,12 @@ import Response from "./Response";
 import { serializeRequests, parseResponses } from "./utils";
 import Session from "./Session";
 import Network from "./Network";
+import Help from "./Help";
 
 export default class Client {
   session: Session;
   network: Network;
+  help: Help;
 
   constructor(
     public readonly file?: string,
@@ -24,6 +26,7 @@ export default class Client {
     }
 
     this.network = new Network(this);
+    this.help = new Help(this);
   }
 
   async invokeRequest(request: Request) {

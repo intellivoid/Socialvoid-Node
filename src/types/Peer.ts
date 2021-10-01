@@ -19,7 +19,7 @@ export default class Peer extends BaseClass {
       obj.type,
       obj.name,
       obj.username,
-      (obj.display_picture_sizes as any[]).map((obj) =>
+      obj.display_picture_sizes.map((obj: any) =>
         DisplayPictureSize.fromObject(obj)
       ),
       obj.flags
