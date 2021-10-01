@@ -96,7 +96,7 @@ export default class Session {
     );
   }
 
-  register(
+  async register(
     termsOfServiceId: string,
     username: string,
     password: string,
@@ -104,7 +104,7 @@ export default class Session {
     lastName?: string
   ) {
     return Peer.fromObject(
-      this.client.invokeRequest(
+      await this.client.invokeRequest(
         new Request("session.register", {
           session_identification: createSessionId(this),
           terms_of_service_id: termsOfServiceId,
