@@ -5,6 +5,7 @@ import Request from "./Request";
 import { getPlatform } from "./utils";
 import { totp } from "otplib";
 import { createHash } from "crypto";
+import { Peer } from "./types";
 
 function answerChallenge(clientPrivateHash: string, challenge: string) {
   const totpCode = totp.generate(challenge);
@@ -125,16 +126,18 @@ export default class Session {
     firstName: string,
     lastName?: string
   ) {
-    return this.client.invokeRequest(
-      new Request("session.register", {
-        session_identification: createSessionId(this),
-        terms_of_service_id: termsOfServiceId,
-        terms_of_service_agree: true,
-        username,
-        password,
-        first_name: firstName,
-        last_name: lastName,
-      })
+    return Peer.fromObject(
+      this.client.invokeRequest(
+        new Request("session.register", {
+          session_identification: createSessionId(this),
+          terms_of_service_id: termsOfServiceId,
+          terms_of_service_agree: true,
+          username,
+          password,
+          first_name: firstName,
+          last_name: lastName,
+        })
+      )
     );
   }
 }
