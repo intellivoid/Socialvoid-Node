@@ -3,9 +3,11 @@ import Request from "./Request";
 import Response from "./Response";
 import { serializeRequests, parseResponses } from "./utils";
 import Session from "./Session";
+import Network from "./Network";
 
 export default class Client {
   session: Session;
+  network: Network;
 
   constructor(
     public readonly file?: string,
@@ -20,6 +22,8 @@ export default class Client {
     } else {
       this.session = new Session(this);
     }
+
+    this.network = new Network(this);
   }
 
   async invokeRequest(request: Request) {
