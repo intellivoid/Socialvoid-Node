@@ -1,28 +1,71 @@
 import axios from "axios";
 import Request from "./Request";
+import Response from "./Response";
 import { serializeRequests, parseResponses } from "./utils";
+import Session from "./Session";
 
 export default class Client {
-  constructor(
-    public readonly file: string,
-    public readonly rpcEndpoint = "http://socialvoid.qlg1.com:5601"
-  ) {}
+  session: Session;
 
-  async makeRequest(...requests: Request[]) {
-    if (!requests || requests.length == 0) {
+  constructor(
+    public readonly file?: string,
+    public readonly rpcEndpoint = "http://socialvoid.qlg1.com:5601"
+  ) {
+    if (file) {
+      try {
+        this.session = Session.load(file);
+      } catch (err) {
+        this.session = new Session(this);
+      }
+    } else {
+      this.session = new Session(this);
+    }
+  }
+
+  async invokeRequest(request: Request) {
+    const result = parseResponses(await this.send(serializeRequests(request)));
+
+    if (result && !Array.isArray(result)) {
+      return result.unwrap();
+    }
+
+    return {};
+  }
+
+  async invokeRequests(...requests: Request[]) {
+    if (!requests) {
       throw new Error(
         "The parameter `requests` cannot be `undefined` or empty"
       );
     }
 
-    return parseResponses(await this.send(serializeRequests(...requests)));
+    const toReturn = new Array<Response>();
+    const result = parseResponses(
+      await this.send(serializeRequests(...requests))
+    );
+
+    if (result) {
+      if (Array.isArray(result)) {
+        toReturn.push(...result);
+      } else {
+        toReturn.push(result);
+      }
+    }
+
+    return toReturn.map((response) => response.unwrap());
   }
 
-  private async send(data: any) {
+  async send(data: any) {
     return (
       await axios.post(this.rpcEndpoint, data, {
         headers: { "Content-Type": "application/json-rpc" },
       })
     ).data;
+  }
+
+  saveSession() {
+    if (this.file) {
+      this.session.save(this.file);
+    }
   }
 }
