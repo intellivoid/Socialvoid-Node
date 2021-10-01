@@ -15,7 +15,7 @@ export default class Client {
   ) {
     if (file) {
       try {
-        this.session = Session.load(file);
+        this.session = Session.load(this, file);
       } catch (err) {
         this.session = new Session(this);
       }

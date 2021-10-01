@@ -16,10 +16,11 @@ export default class Session {
     public sessionExists = false
   ) {}
 
-  static load(file: string): Session {
+  static load(client: Client, file: string): Session {
     const data = JSON.parse(readFileSync(file).toString());
 
     return new Session(
+      client,
       data.public_hash,
       data.private_hash,
       data.session_id,
@@ -86,6 +87,8 @@ export default class Session {
   }
 
   authenticateUser(username: string, password: string, otp?: string) {
+    console.log(this.client);
+    console.log(this.client.invokeRequest);
     return this.client.invokeRequest(
       new Request("session.authenticate_user", {
         session_identification: createSessionId(this),
