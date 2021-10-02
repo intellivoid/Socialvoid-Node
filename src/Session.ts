@@ -90,8 +90,6 @@ export default class Session {
   }
 
   authenticateUser(username: string, password: string, otp?: string) {
-    console.log(this.client);
-    console.log(this.client.invokeRequest);
     return this.client.invokeRequest(
       new Request("session.authenticate_user", {
         session_identification: createSessionId(this),
