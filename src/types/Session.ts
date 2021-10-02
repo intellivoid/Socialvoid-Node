@@ -1,3 +1,4 @@
+import { unixTimestampToDate } from "../utils";
 import Base from "./Base";
 
 export default class Session extends Base {
@@ -16,8 +17,8 @@ export default class Session extends Base {
       obj.id,
       obj.flags,
       obj.authenticated,
-      new Date(obj.created),
-      new Date(obj.expires)
+      unixTimestampToDate(obj.created),
+      unixTimestampToDate(obj.expires)
     );
   }
 }

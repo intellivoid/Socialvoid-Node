@@ -1,6 +1,9 @@
 import Request from "./Request";
 import Response from "./Response";
 
+export const unixTimestampToDate = (unixTimestamp: number) =>
+  new Date(unixTimestamp * 1000);
+
 export function parseResponses(body: any): Response | Response[] | undefined {
   return Array.isArray(body)
     ? body

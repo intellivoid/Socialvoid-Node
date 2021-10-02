@@ -1,3 +1,4 @@
+import { unixTimestampToDate } from "../utils";
 import Base from "./Base";
 
 export default class Document extends Base {
@@ -21,7 +22,7 @@ export default class Document extends Base {
       obj.file_size,
       obj.file_type,
       obj.flags,
-      new Date(obj.created)
+      unixTimestampToDate(obj.created)
     );
   }
 }
