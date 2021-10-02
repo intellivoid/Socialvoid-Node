@@ -5,6 +5,7 @@ import Request from "./Request";
 import { getPlatform } from "./utils";
 import { Peer } from "./types";
 import { createSessionId } from "./crypto";
+import * as types from "./types";
 
 export default class Session {
   constructor(
@@ -66,11 +67,13 @@ export default class Session {
     this.client.saveSession();
   }
 
-  get() {
-    return this.client.invokeRequest(
-      new Request("session.get", {
-        session_identification: createSessionId(this),
-      })
+  async get() {
+    return types.Session.fromObject(
+      await this.client.invokeRequest(
+        new Request("session.get", {
+          session_identification: createSessionId(this),
+        })
+      )
     );
   }
 

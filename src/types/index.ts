@@ -4,6 +4,7 @@ import Peer from "./Peer";
 import HelpDocument from "./HelpDocument";
 import TextEntity from "./TextEntity";
 import ServerInformation from "./ServerInformation";
+import Session from "./Session";
 
 export {
   Document,
@@ -12,4 +13,5 @@ export {
   HelpDocument,
   TextEntity,
   ServerInformation,
+  Session,
 };
