@@ -3,7 +3,7 @@ const {
   Client,
   SessionExpired,
   TwoFactorAuthenticationRequired,
-} = require("./dist");
+} = require("../dist");
 
 const readline = createInterface({
   input: process.stdin,
