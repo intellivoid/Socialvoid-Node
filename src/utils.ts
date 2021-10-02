@@ -5,6 +5,10 @@ export const unixTimestampToDate = (unixTimestamp: number) =>
   new Date(unixTimestamp * 1000);
 
 export function parseResponses(body: any): Response | Response[] | undefined {
+  if (!body) {
+    return undefined;
+  }
+
   return Array.isArray(body)
     ? body
         .filter((item: any) => "id" in item)
