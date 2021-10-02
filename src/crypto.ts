@@ -1,9 +1,10 @@
 import { createHash } from "crypto";
-import { totp } from "otplib";
+import { TOTP } from "./otp";
 import Session from "./Session";
 
 export function answerChallenge(clientPrivateHash: string, challenge: string) {
-  const totpCode = totp.generate(challenge);
+  const totpCode = new TOTP(challenge).now();
+
   return createHash("sha1")
     .update(totpCode + clientPrivateHash)
     .digest("hex");
