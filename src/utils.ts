@@ -1,3 +1,4 @@
+import { isBrowser } from "browser-or-node";
 import { createHash } from "crypto";
 import Request from "./Request";
 import Response from "./Response";
@@ -38,4 +39,5 @@ export function serializeRequests(...requests: Request[]): string {
   return JSON.stringify(toReturn);
 }
 
-export const getPlatform = () => process.platform || "Unknown";
+export const getPlatform = () =>
+  isBrowser ? "Browser" : process.platform || "Unknown";
