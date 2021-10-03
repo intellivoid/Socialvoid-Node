@@ -2,8 +2,7 @@ import OTP from "./OTP";
 
 export default class HOTP extends OTP {
   at(count: number) {
-    const digit = super.generateOTP(count);
-    return digit;
+    return super.generateOTP(count);
   }
 
   verify(otp: number | string, count: number) {

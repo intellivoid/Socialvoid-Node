@@ -14,14 +14,18 @@ export function rjust(num: string, n: number) {
 
 export function arrRjust(arr: any[], n: number) {
   let arrTmp = arr;
+
   if (n <= arrTmp.length) {
     arrTmp = arrTmp.splice(arrTmp.length - 1 - n);
     return arrTmp;
   }
+
   const diff = n - arrTmp.length;
+
   for (let i = 0; i < diff; i += 1) {
     arrTmp.unshift(String.fromCharCode(0));
   }
+
   return arrTmp;
 }
 

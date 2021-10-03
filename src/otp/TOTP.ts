@@ -28,6 +28,7 @@ export default class TOTP extends OTP {
     if (otp === otpTime) {
       return true;
     }
+
     return false;
   }
 }

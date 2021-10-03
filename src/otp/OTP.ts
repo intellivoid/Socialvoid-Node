@@ -10,7 +10,6 @@ export default class OTP {
 
     const hmac = hmacObj.digest();
 
-    // @ts-ignore
     const hmacA = hmac.toString().split("");
 
     const offset = hmacA[hmacA.length - 1].charCodeAt(0) & 0xf;
