@@ -8,12 +8,6 @@ SocialvoidJS is a Node (and maybe a browser in the future) client for Socialvoid
   - Made it use the built-in `crypto` instead of `jsSHA`.
   - And some more modifications and improvements.
 
-## Running an example
+## Examples
 
-```bash
-git clone https://github.com/intellivoid/socialvoidjs
-cd socialvoidjs
-npm i
-npx tsc
-node examples/index
-```
+Check out [`examples/`](./examples).
