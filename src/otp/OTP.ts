@@ -1,18 +1,17 @@
-import jsSHA from "jssha";
+import { createHmac } from "crypto";
 import { byteSecret, intToByteString, rjust } from "./utils";
 
 export default class OTP {
   constructor(public secret: string, public digits = 6) {}
 
   generateOTP(input: number) {
-    const hmacObj = new jsSHA("SHA-1", "BYTES");
-    hmacObj.setHMACKey(byteSecret(this.secret), "BYTES");
+    const hmacObj = createHmac("sha1", byteSecret(this.secret));
     hmacObj.update(intToByteString(input));
 
-    const hmac = hmacObj.getHMAC("BYTES");
+    const hmac = hmacObj.digest();
 
     // @ts-ignore
-    const hmacA = hmac.split("");
+    const hmacA = hmac.toString().split("");
 
     const offset = hmacA[hmacA.length - 1].charCodeAt(0) & 0xf;
 
