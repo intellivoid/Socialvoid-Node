@@ -1,10 +1,8 @@
-import Client from "./Client";
-import Request from "./Request";
-import { HelpDocument, ServerInformation } from "./types";
+import Request from "../Request";
+import { HelpDocument, ServerInformation } from "../types";
+import MethodBase from "./MethodBase";
 
-export default class Help {
-  constructor(private client: Client) {}
-
+export default class Help extends MethodBase {
   async getCommunityGuidelines() {
     return HelpDocument.fromObject(
       await this.client.invokeRequest(

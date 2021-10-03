@@ -4,7 +4,6 @@ import Client from "./Client";
 import Request from "./Request";
 import { getPlatform } from "./utils";
 import { Peer } from "./types";
-import { createSessionId } from "./crypto";
 import * as types from "./types";
 
 export default class Session {
@@ -70,29 +69,21 @@ export default class Session {
   async get() {
     return types.Session.fromObject(
       await this.client.invokeRequest(
-        new Request("session.get", {
-          session_identification: createSessionId(this),
-        })
+        new Request("session.get", this.client.sessionId())
       )
     );
   }
 
   logout() {
     return this.client.invokeRequest(
-      new Request(
-        "session.logout",
-        {
-          session_identification: createSessionId(this),
-        },
-        true
-      )
+      new Request("session.logout", this.client.sessionId(), true)
     );
   }
 
   authenticateUser(username: string, password: string, otp?: string) {
     return this.client.invokeRequest(
       new Request("session.authenticate_user", {
-        session_identification: createSessionId(this),
+        ...this.client.sessionId(),
         username,
         password,
         otp,
@@ -110,7 +101,7 @@ export default class Session {
     return Peer.fromObject(
       await this.client.invokeRequest(
         new Request("session.register", {
-          session_identification: createSessionId(this),
+          ...this.client.sessionId(),
           terms_of_service_id: termsOfServiceId,
           terms_of_service_agree: true,
           username,

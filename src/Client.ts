@@ -1,15 +1,15 @@
 import axios from "axios";
 import Request from "./Request";
 import Response from "./Response";
-import { serializeRequests, parseResponses } from "./utils";
+import { serializeRequests, parseResponses, answerChallenge } from "./utils";
 import Session from "./Session";
-import Network from "./Network";
-import Help from "./Help";
+import { Help, Network, Cloud } from "./methods";
 
 export default class Client {
   session: Session;
   network: Network;
   help: Help;
+  cloud: Cloud;
 
   constructor(
     public readonly file?: string,
@@ -27,6 +27,24 @@ export default class Client {
 
     this.network = new Network(this);
     this.help = new Help(this);
+    this.cloud = new Cloud(this);
+  }
+
+  sessionId() {
+    if (!this.session.sessionExists) {
+      throw new Error("Session does not exist");
+    }
+
+    return {
+      session_identification: {
+        session_id: this.session.sessionId,
+        client_public_hash: this.session.publicHash,
+        challenge_answer: answerChallenge(
+          this.session.privateHash!,
+          this.session.sessionChallenge!
+        ),
+      },
+    };
   }
 
   async invokeRequest(request: Request) {

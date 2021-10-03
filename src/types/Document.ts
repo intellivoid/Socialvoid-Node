@@ -1,7 +1,7 @@
 import { unixTimestampToDate } from "../utils";
-import Base from "./Base";
+import TypeBase from "./TypeBase";
 
-export default class Document extends Base {
+export default class Document extends TypeBase {
   constructor(
     public id: string,
     public fileMime: string,

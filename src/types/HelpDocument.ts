@@ -1,7 +1,7 @@
-import Base from "./Base";
+import TypeBase from "./TypeBase";
 import TextEntity from "./TextEntity";
 
-export default class HelpDocument extends Base {
+export default class HelpDocument extends TypeBase {
   constructor(
     public id: string,
     public text: string,

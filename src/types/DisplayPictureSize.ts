@@ -1,7 +1,7 @@
-import Base from "./Base";
+import TypeBase from "./TypeBase";
 import Document from "./Document";
 
-export default class DisplayPictureSize extends Base {
+export default class DisplayPictureSize extends TypeBase {
   constructor(
     public width: number,
     public height: number,

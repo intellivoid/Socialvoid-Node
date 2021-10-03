@@ -1,7 +1,7 @@
-import Base from "./Base";
+import TypeBase from "./TypeBase";
 import DisplayPictureSize from "./DisplayPictureSize";
 
-export default class Peer extends Base {
+export default class Peer extends TypeBase {
   constructor(
     public id: string,
     public type: string,
