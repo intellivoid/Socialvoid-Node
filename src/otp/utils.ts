@@ -1,4 +1,4 @@
-import Base32 from "./Base32";
+import { b32decode } from "./nibbler";
 
 export function rjust(num: string, n: number) {
   let numTmp = num;
@@ -26,7 +26,7 @@ export function arrRjust(arr: any[], n: number) {
 }
 
 export function byteSecret(secret: string) {
-  return Base32.decode(secret.toUpperCase());
+  return b32decode(secret.toUpperCase());
 }
 
 export function intToByteString(input: number, padding = 8) {
