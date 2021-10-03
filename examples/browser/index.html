@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script src="./socialvoid.js"></script>
+    <script>
+      const client = new socialvoid.Client();
+
+      (async () => {
+        await client.session.create();
+
+        const username = prompt("Username");
+        const password = prompt("Password");
+        const otp = prompt("OTP if set");
+
+        await client.session.authenticateUser(
+          username,
+          password,
+          otp == "" ? undefined : otp
+        );
+
+        const me = await client.network.getMe();
+        alert(`Logged in as ${me.name}`);
+      })();
+    </script>
+  </body>
+</html>
