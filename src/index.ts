@@ -1,9 +1,6 @@
 import Client from "./Client";
+import Request from "./Request";
 
-export { Client };
+export { Client, Request };
 export * from "./types";
 export * from "./errors";
-
-import { TOTP } from "./otp";
-
-new TOTP("a").now();
