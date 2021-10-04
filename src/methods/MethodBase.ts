@@ -1,5 +1,5 @@
-import Client from "../Client";
+import BaseClient from "../BaseClient";
 
 export default class MethodBase {
-  constructor(protected readonly client: Client) {}
+  constructor(protected client: BaseClient) {}
 }
