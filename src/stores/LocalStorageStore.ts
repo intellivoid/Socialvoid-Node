@@ -1,6 +1,14 @@
 import { isBrowser } from "browser-or-node";
 import Store from "./Store";
 
+function resolveToBeSet(toBeSet: any) {
+  return JSON.stringify(toBeSet);
+}
+
+function resolveGot(toBeGot: string | null) {
+  return toBeGot == null ? toBeGot : JSON.parse(toBeGot);
+}
+
 export default class LocalStorageStore extends Store {
   private id: string;
 
@@ -19,11 +27,11 @@ export default class LocalStorageStore extends Store {
   }
 
   set(key: string, value: any) {
-    localStorage.setItem(this.resolveKey(key), value);
+    localStorage.setItem(this.resolveKey(key), resolveToBeSet(value));
   }
 
   get(key: string) {
-    return localStorage.getItem(this.resolveKey(key));
+    return resolveGot(localStorage.getItem(this.resolveKey(key)));
   }
 
   save() {}
