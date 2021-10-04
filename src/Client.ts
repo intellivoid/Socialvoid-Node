@@ -59,4 +59,8 @@ export default class Client extends BaseClient {
     this.store.delete("session");
     this.store.save();
   }
+
+  get sessionExists() {
+    return this._session != undefined;
+  }
 }
