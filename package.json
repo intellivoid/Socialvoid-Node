@@ -1,7 +1,7 @@
 {
   "name": "socialvoid",
   "version": "0.0.1",
-  "description": "Node and maybe browser in the future client for Socialvoid",
+  "description": "Node and browser Socialvoid client",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && webpack --config webpack.config.js",
