@@ -24,6 +24,12 @@ export default class Client extends BaseClient {
         ? new FileStore(store)
         : store;
 
+    const session = this.store.get("session");
+
+    if (session) {
+      this._session = session;
+    }
+
     this.network = new Network(this);
     this.help = new Help(this);
     this.cloud = new Cloud(this);
@@ -31,7 +37,7 @@ export default class Client extends BaseClient {
 
   async newSession() {
     if (this._session) {
-      throw new Error("A session exists already");
+      return;
     }
 
     const publicHash = newHash();
