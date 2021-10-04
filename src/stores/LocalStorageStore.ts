@@ -10,16 +10,12 @@ function resolveGot(toBeGot: string | null) {
 }
 
 export default class LocalStorageStore extends Store {
-  private id: string;
-
-  constructor() {
+  constructor(private id = "main") {
     super();
 
     if (!isBrowser) {
       throw new Error("`LocalStorageStore` is only for browsers");
     }
-
-    this.id = String(new Date().getTime());
   }
 
   private resolveKey(key: string) {
