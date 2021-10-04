@@ -1,4 +1,5 @@
-import { Store, MemoryStore, FileStore } from "./stores";
+import { isBrowser } from "browser-or-node";
+import { Store, MemoryStore, FileStore, LocalStorageStore } from "./stores";
 import { Help, Cloud, Network, Session } from "./methods";
 import BaseClient from "./BaseClient";
 import { newHash } from "./utils";
@@ -21,7 +22,9 @@ export default class Client extends BaseClient {
       typeof store === "undefined"
         ? new MemoryStore()
         : typeof store === "string"
-        ? new FileStore(store)
+        ? isBrowser
+          ? new LocalStorageStore(store)
+          : new FileStore(store)
         : store;
 
     const session = this.store.get("session");
