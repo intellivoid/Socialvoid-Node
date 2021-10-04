@@ -1,5 +1,5 @@
 import { isBrowser } from "browser-or-node";
-import { createHash } from "crypto";
+import { createHash, randomBytes } from "crypto";
 import Request from "./Request";
 import Response from "./Response";
 import { TOTP } from "./otp";
@@ -41,3 +41,5 @@ export function serializeRequests(...requests: Request[]): string {
 
 export const getPlatform = () =>
   isBrowser ? "Browser" : process.platform || "Unknown";
+
+export const newHash = () => randomBytes(32).toString("hex");
