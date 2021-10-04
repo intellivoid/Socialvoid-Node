@@ -2,17 +2,17 @@ import Request from "../Request";
 import { Peer } from "../types";
 import * as types from "../types";
 import MethodBase from "./MethodBase";
-import { getPlatform } from "../utils";
+import { NAME, VERSION, PLATFORM } from "../constants";
 
 export default class Session extends MethodBase {
-  async create(
+  create(
     publicHash: string,
     privateHash: string,
-    name = "SocialvoidJS",
-    version = "0.0.1",
-    platform: string = getPlatform()
+    name = NAME,
+    version = VERSION,
+    platform = PLATFORM
   ) {
-    return await this.client.invokeRequest(
+    return this.client.invokeRequest(
       new Request("session.create", {
         public_hash: publicHash,
         private_hash: privateHash,

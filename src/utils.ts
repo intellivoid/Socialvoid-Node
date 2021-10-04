@@ -39,7 +39,4 @@ export function serializeRequests(...requests: Request[]): string {
   return JSON.stringify(toReturn);
 }
 
-export const getPlatform = () =>
-  isBrowser ? "Browser" : process.platform || "Unknown";
-
 export const newHash = () => randomBytes(32).toString("hex");
