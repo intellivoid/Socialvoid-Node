@@ -3,6 +3,9 @@ import { HelpDocument, ServerInformation } from "../types";
 import MethodBase from "./MethodBase";
 
 export default class Help extends MethodBase {
+  /**
+   * Retrieves the Community Guidelines.
+   */
   async getCommunityGuidelines() {
     return HelpDocument.fromObject(
       await this.client.invokeRequest(
@@ -11,12 +14,18 @@ export default class Help extends MethodBase {
     );
   }
 
+  /**
+   * Retrieves the Privacy Policy.
+   */
   async getPrivacyPolicy() {
     return HelpDocument.fromObject(
       await this.client.invokeRequest(new Request("help.get_privacy_policy"))
     );
   }
 
+  /*
+   * Retrieves server information.
+   */
   async getServerInformation() {
     return ServerInformation.fromObject(
       await this.client.invokeRequest(
@@ -25,6 +34,9 @@ export default class Help extends MethodBase {
     );
   }
 
+  /*
+   * Retrieves the Terms of Service.
+   */
   async getTermsOfService() {
     return HelpDocument.fromObject(
       await this.client.invokeRequest(new Request("help.get_terms_of_service"))
