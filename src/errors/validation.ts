@@ -1,6 +1,6 @@
-import GeneralError from "./GeneralError";
+import SocialvoidError from "./SocialvoidError";
 
-export class ValidationError extends GeneralError {}
+export class ValidationError extends SocialvoidError {}
 
 export class InvalidUsername extends ValidationError {}
 

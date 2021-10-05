@@ -1,6 +1,6 @@
-import GeneralError from "./GeneralError";
+import SocialvoidError from "./SocialvoidError";
 
-export class JSONRPCError extends GeneralError {}
+export class JSONRPCError extends SocialvoidError {}
 
 export class ParseError extends JSONRPCError {}
 

@@ -1,6 +1,6 @@
-import GeneralError from "./GeneralError";
+import SocialvoidError from "./SocialvoidError";
 
-export class ServerError extends GeneralError {}
+export class ServerError extends SocialvoidError {}
 
 export class InternalServerError extends ServerError {}
 

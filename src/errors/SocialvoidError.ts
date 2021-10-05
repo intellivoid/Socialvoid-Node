@@ -1,4 +1,4 @@
-export default class GeneralError extends Error {
+export default class SocialvoidError extends Error {
   message: string;
 
   constructor(public errorCode: number, public errorMessage: string) {

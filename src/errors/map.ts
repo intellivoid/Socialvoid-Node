@@ -1,7 +1,7 @@
 import * as errors from "./all";
-import GeneralError from "./GeneralError";
+import SocialvoidError from "./SocialvoidError";
 
-export const map: { [key: string | number]: typeof GeneralError } = {
+export const map: { [key: string | number]: typeof SocialvoidError } = {
   // jsonrpc
   "-32700": errors.ParseError,
   "-32600": errors.InvalidRequest,

@@ -1,6 +1,6 @@
-import GeneralError from "./GeneralError";
+import SocialvoidError from "./SocialvoidError";
 
-export class NetworkError extends GeneralError {}
+export class NetworkError extends SocialvoidError {}
 
 export class PeerNotFound extends NetworkError {}
 

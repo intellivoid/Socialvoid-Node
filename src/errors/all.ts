@@ -1,6 +1,6 @@
-import GeneralError from "./GeneralError";
+import SocialvoidError from "./SocialvoidError";
 
-export { GeneralError };
+export { SocialvoidError };
 
 export * from "./jsonrpc";
 export * from "./authentication";
