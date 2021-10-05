@@ -1,6 +1,6 @@
 import { isBrowser } from "browser-or-node";
 import { Store, MemoryStore, FileStore, LocalStorageStore } from "./stores";
-import { Help, Cloud, Network, Session } from "./methods";
+import { Help, Cloud, Network, Session, Account } from "./methods";
 import BaseClient from "./BaseClient";
 import { newHash } from "./utils";
 
@@ -9,6 +9,7 @@ export default class Client extends BaseClient {
   cloud = new Cloud(this);
   network = new Network(this);
   session = new Session(this);
+  account = new Account(this);
 
   private store: Store;
 
