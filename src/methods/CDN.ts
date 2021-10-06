@@ -13,6 +13,6 @@ export default class CDN extends MethodBase {
     );
     form.append("challenge_answer", session_identification.challenge_answer);
     form.append("document", document);
-    return this.client.send(form, form.getHeaders(), true);
+    return this.client.sendToCDN(form);
   }
 }

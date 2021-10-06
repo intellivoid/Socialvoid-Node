@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import Request from "./Request";
 import Response from "./Response";
 import { serializeRequests, parseResponses, answerChallenge } from "./utils";
+import FormData from "form-data";
 
 interface Session {
   id: string;
@@ -11,17 +12,22 @@ interface Session {
 }
 
 export default class BaseClient {
-  protected axiosInstance: AxiosInstance;
+  protected instance: AxiosInstance;
+  protected cdnInstance: AxiosInstance;
   protected _session?: Session;
 
   constructor(
     public readonly rpcEndpoint: string,
     public readonly cdnEndpoint: string
   ) {
-    this.axiosInstance = axios.create({
+    this.instance = axios.create({
       baseURL: this.rpcEndpoint,
       method: "POST",
       headers: { "Content-Type": "application/json-rpc" },
+    });
+    this.cdnInstance = axios.create({
+      baseURL: this.cdnEndpoint,
+      method: "POST",
     });
   }
 
@@ -75,11 +81,16 @@ export default class BaseClient {
     return toReturn.map((response) => response.unwrap());
   }
 
-  async send(data: any, headers?: Record<string, string>, isToCDN?: boolean) {
-    return (await this.axiosInstance.request({
+  async send(data: any) {
+    return (await this.instance.request({
       data,
-      headers,
-      url: isToCDN ? this.cdnEndpoint : undefined,
     })).data;
+  }
+
+  async sendToCDN(data: FormData) {
+    return (await this.cdnInstance.request({
+      data,
+      headers: data.getHeaders(),
+    })).data as any; // https://github.com/axios/axios/issues/4150
   }
 }
