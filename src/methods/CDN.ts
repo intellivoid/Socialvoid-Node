@@ -1,19 +1,25 @@
 import FormData from "form-data";
 import { Document } from "../types";
+import { formFromObj } from "../utils";
 import MethodBase from "./MethodBase";
 
 export default class CDN extends MethodBase {
   async upload(document: any) {
-    const { session_identification } = this.client.sessionId();
-    const form = new FormData();
-    form.append("action", "upload");
-    form.append("session_id", session_identification.session_id);
-    form.append(
-      "client_public_hash",
-      session_identification.client_public_hash
-    );
-    form.append("challenge_answer", session_identification.challenge_answer);
-    form.append("document", document);
-    return Document.fromObject((await this.client.sendToCDN(form)).results);
+    const form = formFromObj({
+      action: "upload",
+      document,
+      ...this.client.sessionId().session_identification,
+    });
+    return Document.fromObject((await this.client.sendCDN(form)).results);
+  }
+
+  async download(document: string | Document) {
+    const form = formFromObj({
+      action: "download",
+      document,
+      ...this.client.sessionId().session_identification,
+    });
+
+    return this.client.sendCDN(form);
   }
 }

@@ -1,4 +1,4 @@
-import { isBrowser } from "browser-or-node";
+import FormData from "form-data";
 import { createHash, randomBytes } from "crypto";
 import Request from "./Request";
 import Response from "./Response";
@@ -40,3 +40,13 @@ export function serializeRequests(...requests: Request[]): string {
 }
 
 export const newHash = () => randomBytes(32).toString("hex");
+
+export const formFromObj = (obj: { [key: string]: any }) => {
+  const form = new FormData();
+
+  for (const i in obj) {
+    form.append(i, obj[i]);
+  }
+
+  return form;
+};

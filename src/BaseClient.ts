@@ -87,7 +87,7 @@ export default class BaseClient {
     })).data;
   }
 
-  async sendToCDN(data: FormData) {
+  async sendCDN(data: FormData) {
     return (await this.cdnInstance.request({
       data,
       headers: data.getHeaders(),
