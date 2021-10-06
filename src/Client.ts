@@ -1,6 +1,6 @@
 import { isBrowser } from "browser-or-node";
 import { Store, MemoryStore, FileStore, LocalStorageStore } from "./stores";
-import { Help, Cloud, Network, Session, Account } from "./methods";
+import { Help, Cloud, Network, Session, Account, CDN } from "./methods";
 import BaseClient from "./BaseClient";
 import { newHash } from "./utils";
 
@@ -10,14 +10,16 @@ export default class Client extends BaseClient {
   network = new Network(this);
   session = new Session(this);
   account = new Account(this);
+  cdn = new CDN(this);
 
   private store: Store;
 
   constructor(
     store?: string | Store,
-    rpcEndpoint = "http://socialvoid.qlg1.com:5601"
+    rpcEndpoint = "http://socialvoid.qlg1.com:5601",
+    cdnEndpoint = "http://socialvoid.qlg1.com:5602"
   ) {
-    super(rpcEndpoint);
+    super(rpcEndpoint, cdnEndpoint);
 
     this.store =
       typeof store === "undefined"

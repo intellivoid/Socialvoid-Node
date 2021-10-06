@@ -14,7 +14,10 @@ export default class BaseClient {
   protected axiosInstance: AxiosInstance;
   protected _session?: Session;
 
-  constructor(public readonly rpcEndpoint = "http://socialvoid.qlg1.com:5601") {
+  constructor(
+    public readonly rpcEndpoint: string,
+    public readonly cdnEndpoint: string
+  ) {
     this.axiosInstance = axios.create({
       baseURL: this.rpcEndpoint,
       method: "POST",
@@ -72,7 +75,11 @@ export default class BaseClient {
     return toReturn.map((response) => response.unwrap());
   }
 
-  async send(data: any) {
-    return (await this.axiosInstance.request({ data })).data;
+  async send(data: any, headers?: Record<string, string>, isToCDN?: boolean) {
+    return (await this.axiosInstance.request({
+      data,
+      headers,
+      url: isToCDN ? this.cdnEndpoint : undefined,
+    })).data;
   }
 }

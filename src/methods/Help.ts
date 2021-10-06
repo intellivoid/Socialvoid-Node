@@ -3,6 +3,8 @@ import { HelpDocument, ServerInformation } from "../types";
 import MethodBase from "./MethodBase";
 
 export default class Help extends MethodBase {
+  private cachedServerInformation?: ServerInformation;
+
   /**
    * Retrieves the Community Guidelines.
    */
@@ -26,7 +28,11 @@ export default class Help extends MethodBase {
   /*
    * Retrieves server information.
    */
-  async getServerInformation() {
+  async getServerInformation(force?: boolean) {
+    if (this.cachedServerInformation && !force) {
+      return this.cachedServerInformation;
+    }
+
     return ServerInformation.fromObject(
       await this.client.invokeRequest(
         new Request("help.get_server_information")
