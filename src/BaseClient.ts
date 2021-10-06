@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import Request from "./Request";
 import Response from "./Response";
 import { serializeRequests, parseResponses, answerChallenge } from "./utils";
@@ -11,11 +11,16 @@ interface Session {
 }
 
 export default class BaseClient {
+  protected axiosInstance: AxiosInstance;
   protected _session?: Session;
 
-  constructor(
-    public readonly rpcEndpoint = "http://socialvoid.qlg1.com:5601"
-  ) {}
+  constructor(public readonly rpcEndpoint = "http://socialvoid.qlg1.com:5601") {
+    this.axiosInstance = axios.create({
+      baseURL: this.rpcEndpoint,
+      method: "POST",
+      headers: { "Content-Type": "application/json-rpc" },
+    });
+  }
 
   sessionId() {
     if (!this._session) {
@@ -68,8 +73,6 @@ export default class BaseClient {
   }
 
   async send(data: any) {
-    return (await axios.post(this.rpcEndpoint, data, {
-      headers: { "Content-Type": "application/json-rpc" },
-    })).data;
+    return (await this.axiosInstance.request({ data })).data;
   }
 }
