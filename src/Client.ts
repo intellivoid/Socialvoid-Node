@@ -1,5 +1,13 @@
 import { isBrowser } from "browser-or-node";
-import { Store, MemoryStore, FileStore, LocalStorageStore } from "./stores";
+import {
+  Store,
+  MemoryStore,
+  FileStore,
+  LocalStorageStore,
+  Memory,
+  LocalStorageKey,
+  FileName,
+} from "./stores";
 import { Help, Cloud, Network, Session, Account, CDN } from "./methods";
 import BaseClient from "./BaseClient";
 import { newHash } from "./utils";
@@ -15,7 +23,7 @@ export default class Client extends BaseClient {
   private store: Store;
 
   constructor(
-    store?: string | Store,
+    store: Memory | FileName | LocalStorageKey | Store = "main",
     rpcEndpoint = "http://socialvoid.qlg1.com:5601",
     cdnEndpoint = "http://socialvoid.qlg1.com:5602"
   ) {
@@ -25,7 +33,9 @@ export default class Client extends BaseClient {
       typeof store === "undefined"
         ? new MemoryStore()
         : typeof store === "string"
-        ? isBrowser
+        ? store == ":memory:"
+          ? new MemoryStore()
+          : isBrowser
           ? new LocalStorageStore(store)
           : new FileStore(store)
         : store;
