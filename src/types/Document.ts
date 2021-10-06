@@ -22,7 +22,7 @@ export default class Document extends TypeBase {
       obj.file_size,
       obj.file_type,
       obj.flags,
-      unixTimestampToDate(obj.created)
+      unixTimestampToDate(obj.created_timestamp)
     );
   }
 }
