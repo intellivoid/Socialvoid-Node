@@ -1,8 +1,9 @@
 import FormData from "form-data";
+import { Document } from "../types";
 import MethodBase from "./MethodBase";
 
 export default class CDN extends MethodBase {
-  upload(document: any) {
+  async upload(document: any) {
     const { session_identification } = this.client.sessionId();
     const form = new FormData();
     form.append("action", "upload");
@@ -13,6 +14,6 @@ export default class CDN extends MethodBase {
     );
     form.append("challenge_answer", session_identification.challenge_answer);
     form.append("document", document);
-    return this.client.sendToCDN(form);
+    return Document.fromObject((await this.client.sendToCDN(form)).results);
   }
 }
