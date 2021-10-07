@@ -1,8 +1,9 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosError } from "axios";
 import Request from "./Request";
 import Response from "./Response";
 import { serializeRequests, parseResponses, answerChallenge } from "./utils";
 import FormData from "form-data";
+import {throwError} from './utils';
 
 interface Session {
   id: string;
@@ -92,9 +93,25 @@ export default class BaseClient {
   }
 
   async sendCDN(data: FormData) {
-    return (await this.cdnInstance.request({
-      data,
-      headers: data.getHeaders(),
-    })).data as any; // https://github.com/axios/axios/issues/4150
+    let res;
+
+    try {
+      res = await this.cdnInstance.request({
+        data,
+        headers: data.getHeaders(),
+      });
+    } catch (err) {
+      const data = (err as any)?.response?.data;
+
+      if (data) {
+        if (data.error_code && data.message) {
+          throwError(data.error_code, data.message);
+        }
+      }
+      
+      throw err;
+    }
+
+    return res.data as any; // https://github.com/axios/axios/issues/4150
   }
 }

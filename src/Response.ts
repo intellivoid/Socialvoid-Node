@@ -1,4 +1,4 @@
-import { SocialvoidError, map } from "./errors";
+import {throwError} from './utils';
 
 export default class Response {
   id: number;
@@ -22,13 +22,9 @@ export default class Response {
     }
 
     if (this.error) {
-      if (this.error.code in map) {
-        throw new map[this.error.code](this.error.code, this.error.message);
-      }
-
-      throw new SocialvoidError(this.error.code, this.error.message);
+      throwError(this.error?.code, this.error?.message)
     }
 
-    throw new Error("Oh no");
+    return undefined;
   }
 }

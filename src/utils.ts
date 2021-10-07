@@ -3,6 +3,15 @@ import { createHash, randomBytes } from "crypto";
 import Request from "./Request";
 import Response from "./Response";
 import { TOTP } from "./otp";
+import { map, SocialvoidError } from "./errors";
+
+export function throwError(code: number, message: string) {
+  if (code in map) {
+    throw new map[code](code, message);
+  }
+
+  throw new SocialvoidError(code, message);
+}
 
 export function answerChallenge(clientPrivateHash: string, challenge: string) {
   const totpCode = new TOTP(challenge).now();
