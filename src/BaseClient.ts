@@ -81,6 +81,10 @@ export default class BaseClient {
     return toReturn.map((response) => response.unwrap());
   }
 
+  async invokeCDNRequest(data: FormData) {
+    return new Response(parseResponses(await this.sendCDN(data))).unwrap();
+  }
+
   async send(data: any) {
     return (await this.instance.request({
       data,
