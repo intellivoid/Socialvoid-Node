@@ -87,9 +87,11 @@ export default class BaseClient {
   }
 
   async send(data: any) {
-    return (await this.instance.request({
-      data,
-    })).data;
+    return (
+      await this.instance.request({
+        data,
+      })
+    ).data;
   }
 
   async sendCDN(data: FormData) {
@@ -108,7 +110,10 @@ export default class BaseClient {
         const data = error.response.data;
 
         if (data) {
-          if (typeof data.error_code !== 'undefined' && typeof data.message !== 'undefined') {
+          if (
+            typeof data.error_code !== "undefined" &&
+            typeof data.message !== "undefined"
+          ) {
             throwError(data.error_code, data.message);
           }
         }

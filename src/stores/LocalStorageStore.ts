@@ -5,8 +5,8 @@ function resolveToBeSet(toBeSet: any) {
   return JSON.stringify(toBeSet);
 }
 
-function resolveGot(toBeGot: string | null) {
-  return toBeGot == null ? toBeGot : JSON.parse(toBeGot);
+function resolveGot(got: string | null) {
+  return got == null ? got : JSON.parse(got);
 }
 
 export default class LocalStorageStore extends Store {

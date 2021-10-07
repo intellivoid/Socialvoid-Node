@@ -6,7 +6,7 @@ import {
   LocalStorageStore,
   Memory,
   LocalStorageKey,
-  FileName
+  FileName,
 } from "./stores";
 import { Help, Cloud, Network, Session, Account, CDN } from "./methods";
 import BaseClient from "./BaseClient";
@@ -64,7 +64,7 @@ export default class Client extends BaseClient {
       publicHash,
       privateHash,
       id: session.id,
-      challenge: session.challenge
+      challenge: session.challenge,
     };
     this.store.set("session", this._session);
     this.store.save();
