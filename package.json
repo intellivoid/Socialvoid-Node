@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && webpack --config webpack.config.js",
-    "test": "tsc --noEmit"
+    "test": "tsc --noEmit && webpack t webpack.config.js"
   },
   "keywords": [],
   "author": "Roj Serbest <roj@rojser.best>",
