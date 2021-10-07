@@ -23,7 +23,10 @@ export default class Account extends MethodBase {
     document = document instanceof Document ? document.id : document;
 
     return this.client.invokeRequest(
-      new Request("account.set_profile_picture", { document })
+      new Request("account.set_profile_picture", {
+        document,
+        ...this.client.sessionId(),
+      })
     );
   }
 }
