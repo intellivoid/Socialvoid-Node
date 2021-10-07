@@ -10,6 +10,7 @@ export default class CDN extends MethodBase {
       document,
       ...this.client.sessionId().session_identification,
     });
+
     return Document.fromObject(
       (await this.client.invokeCDNRequest(form)).results
     );

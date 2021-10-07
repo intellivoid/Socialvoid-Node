@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <input type="file" id="file" />
+    <button onclick="upload()">Upload</button>
+
+    <script src="../../browser/socialvoid.js"></script>
+    <script src="./login.js"></script>
+    <script>
+      const client = new socialvoid.Client();
+      const inputElement = document.getElementById("file");
+
+      async function upload() {
+        await login(client, false);
+
+        if (inputElement.files.length == 0) {
+          alert("No file selected.");
+          return;
+        }
+
+        console.log(await client.cdn.upload(inputElement.files[0]));
+        alert("Uploaded, see the console.");
+      }
+    </script>
+  </body>
+</html>
