@@ -20,6 +20,10 @@ export function parseResponses(body: any): Response | Response[] | undefined {
     return undefined;
   }
 
+  if (body.success) {
+    return new Response(body);
+  }
+
   return Array.isArray(body)
     ? body
         .filter((item: any) => "id" in item)
