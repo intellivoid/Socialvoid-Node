@@ -99,7 +99,7 @@ export default class BaseClient {
       // https://github.com/axios/axios/issues/4150
       res = await this.cdnInstance.request<any>({
         data,
-        headers: data.getHeaders(),
+        headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (catched) {
       const error = catched as AxiosError<any>;
