@@ -3,13 +3,17 @@ const { Client } = require("../../dist");
 const client = new Client("session.json");
 
 (async () => {
-  await client.newSession();
+  if (!client.sessionExists) {
+    await client.newSession();
+    await client.session.authenticateUser(
+      "username",
+      "password"
+      // "otp"
+    );
+  }
 
-  await client.session.authenticateUser(
-    "username",
-    "password"
-    // "otp"
-  );
-
-  console.log(await client.network.getMe());
+  const me = await client.network.getMe();
+  console.log("Logged in as", me.name + ".");
+  console.log(`${me.name}’s username is`, me.username + ".");
+  console.log(`@${me.username}’s ID is`, me.id + ".");
 })();
