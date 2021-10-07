@@ -104,11 +104,11 @@ export default class BaseClient {
     } catch (catched) {
       const error = catched as AxiosError<any>;
 
-      if (error.response && error.response.status != 200) {
+      if (error.response && error.response?.status != 200) {
         const data = error.response.data;
 
         if (data) {
-          if (data.error_code && data.message) {
+          if (typeof data.error_code !== 'undefined' && typeof data.message !== 'undefined') {
             throwError(data.error_code, data.message);
           }
         }
