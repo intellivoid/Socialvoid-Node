@@ -4,7 +4,7 @@
   "description": "Node and browser Socialvoid client",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && webpack --config webpack.config.js",
+    "build": "tsc && webpack -c webpack.config.js",
     "test": "tsc --noEmit && webpack t webpack.config.js"
   },
   "keywords": [],
