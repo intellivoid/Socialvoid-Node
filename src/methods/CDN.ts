@@ -10,7 +10,9 @@ export default class CDN extends MethodBase {
       document,
       ...this.client.sessionId().session_identification,
     });
-    return Document.fromObject((await this.client.sendCDN(form)).results);
+    return Document.fromObject(
+      (await this.client.invokeCDNRequest(form)).results
+    );
   }
 
   async download(document: string | Document) {
@@ -20,6 +22,6 @@ export default class CDN extends MethodBase {
       ...this.client.sessionId().session_identification,
     });
 
-    return this.client.sendCDN(form);
+    return this.client.invokeCDNRequest(form);
   }
 }
