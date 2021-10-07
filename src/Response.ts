@@ -1,19 +1,24 @@
 import { SocialvoidError, map } from "./errors";
 
 export default class Response {
-  id: number;
+  id?: number;
   success: boolean;
   error?: { code: number; message: string };
 
   constructor(public data: any) {
-    if (!this.data.id) {
+    if (!this.data.success) {
       throw new Error(`Got invalid data: ${data}`);
     }
 
     this.id = data.id;
     this.success = !("error" in data);
-    this.data = data.result;
-    this.error = data.error;
+    this.data = data.result || data.results;
+
+    if (data.error) {
+      this.error = data.error;
+    } else if (data.error_code && data.message) {
+      this.error = { code: data.error_code, message: data.message };
+    }
   }
 
   unwrap() {
