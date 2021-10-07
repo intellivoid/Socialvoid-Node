@@ -24,11 +24,11 @@ export default class BaseClient {
     this.instance = axios.create({
       baseURL: this.rpcEndpoint,
       method: "POST",
-      headers: { "Content-Type": "application/json-rpc" }
+      headers: { "Content-Type": "application/json-rpc" },
     });
     this.cdnInstance = axios.create({
       baseURL: this.cdnEndpoint,
-      method: "POST"
+      method: "POST",
     });
   }
 
@@ -44,8 +44,8 @@ export default class BaseClient {
         challenge_answer: answerChallenge(
           this._session.privateHash,
           this._session.challenge
-        )
-      }
+        ),
+      },
     };
   }
 
@@ -79,7 +79,7 @@ export default class BaseClient {
       }
     }
 
-    return toReturn.map(response => response.unwrap());
+    return toReturn.map((response) => response.unwrap());
   }
 
   async invokeCDNRequest(data: FormData) {
@@ -88,7 +88,7 @@ export default class BaseClient {
 
   async send(data: any) {
     return (await this.instance.request({
-      data
+      data,
     })).data;
   }
 
@@ -96,9 +96,10 @@ export default class BaseClient {
     let res;
 
     try {
-      res = await this.cdnInstance.request({
+      // https://github.com/axios/axios/issues/4150
+      res = await this.cdnInstance.request<any>({
         data,
-        headers: data.getHeaders()
+        headers: data.getHeaders(),
       });
     } catch (catched) {
       const error = catched as AxiosError<any>;
@@ -116,6 +117,6 @@ export default class BaseClient {
       throw catched;
     }
 
-    return res.data as any; // https://github.com/axios/axios/issues/4150
+    return res.data;
   }
 }
