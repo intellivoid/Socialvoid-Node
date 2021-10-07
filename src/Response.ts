@@ -1,4 +1,4 @@
-import {throwError} from './utils';
+import { throwError } from "./utils";
 
 export default class Response {
   id: number;
@@ -22,7 +22,7 @@ export default class Response {
     }
 
     if (this.error) {
-      throwError(this.error?.code, this.error?.message)
+      throwError(this.error.code, this.error.message);
     }
 
     return undefined;

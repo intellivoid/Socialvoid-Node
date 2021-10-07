@@ -3,7 +3,7 @@ import Request from "./Request";
 import Response from "./Response";
 import { serializeRequests, parseResponses, answerChallenge } from "./utils";
 import FormData from "form-data";
-import {throwError} from './utils';
+import { throwError } from "./utils";
 
 interface Session {
   id: string;
@@ -24,11 +24,11 @@ export default class BaseClient {
     this.instance = axios.create({
       baseURL: this.rpcEndpoint,
       method: "POST",
-      headers: { "Content-Type": "application/json-rpc" },
+      headers: { "Content-Type": "application/json-rpc" }
     });
     this.cdnInstance = axios.create({
       baseURL: this.cdnEndpoint,
-      method: "POST",
+      method: "POST"
     });
   }
 
@@ -44,8 +44,8 @@ export default class BaseClient {
         challenge_answer: answerChallenge(
           this._session.privateHash,
           this._session.challenge
-        ),
-      },
+        )
+      }
     };
   }
 
@@ -79,7 +79,7 @@ export default class BaseClient {
       }
     }
 
-    return toReturn.map((response) => response.unwrap());
+    return toReturn.map(response => response.unwrap());
   }
 
   async invokeCDNRequest(data: FormData) {
@@ -88,7 +88,7 @@ export default class BaseClient {
 
   async send(data: any) {
     return (await this.instance.request({
-      data,
+      data
     })).data;
   }
 
@@ -98,18 +98,22 @@ export default class BaseClient {
     try {
       res = await this.cdnInstance.request({
         data,
-        headers: data.getHeaders(),
+        headers: data.getHeaders()
       });
-    } catch (err) {
-      const data = (err as any)?.response?.data;
+    } catch (catched) {
+      const error = catched as AxiosError<any>;
 
-      if (data) {
-        if (data.error_code && data.message) {
-          throwError(data.error_code, data.message);
+      if (error.response && error.response.status != 200) {
+        const data = error.response.data;
+
+        if (data) {
+          if (data.error_code && data.message) {
+            throwError(data.error_code, data.message);
+          }
         }
       }
-      
-      throw err;
+
+      throw catched;
     }
 
     return res.data as any; // https://github.com/axios/axios/issues/4150
