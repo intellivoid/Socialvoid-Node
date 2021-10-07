@@ -10,7 +10,7 @@ const config = {
   output: {
     library: "socialvoid",
     filename: "socialvoid.js",
-    path: path.resolve(__dirname, "browser"),
+    path: path.resolve(__dirname, "out"),
   },
   module: {
     rules: [
