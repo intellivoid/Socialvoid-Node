@@ -82,7 +82,7 @@ export default class BaseClient {
   }
 
   async invokeCDNRequest(data: FormData) {
-    return new Response(parseResponses(await this.sendCDN(data))).unwrap();
+    return await this.sendCDN(data);
   }
 
   async send(data: any) {
