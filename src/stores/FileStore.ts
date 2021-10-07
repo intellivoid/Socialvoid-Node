@@ -12,6 +12,8 @@ export default class FileStore extends Store {
       throw new Error("`FileStore` is for Node only");
     }
 
+    this.file = this.file + ".json";
+
     try {
       this.data = JSON.parse(readFileSync(this.file).toString());
     } catch (err) {
