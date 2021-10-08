@@ -5,6 +5,11 @@ const client = new Client("session.json");
 (async () => {
   if (!client.sessionExists) {
     await client.newSession();
+  }
+
+  const session = await client.session.get();
+
+  if (!session.authenticated) {
     await client.session.authenticateUser(
       "username",
       "password"
