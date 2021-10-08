@@ -22,6 +22,6 @@ export default class CDN extends MethodBase {
       ...this.client.sessionId().session_identification,
     });
 
-    return this.client.invokeCDNRequest(form);
+    return this.client.invokeCDNRequest(form, "arraybuffer");
   }
 }

@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosError } from "axios";
+import axios, { AxiosInstance, AxiosError, ResponseType } from "axios";
+import { isBrowser } from "browser-or-node";
 import Request from "./Request";
 import Response from "./Response";
 import { serializeRequests, parseResponses, answerChallenge } from "./utils";
@@ -82,8 +83,8 @@ export default class BaseClient {
     return toReturn.map((response) => response.unwrap());
   }
 
-  async invokeCDNRequest(data: FormData) {
-    return await this.sendCDN(data);
+  async invokeCDNRequest(data: FormData, responseType?: ResponseType) {
+    return await this.sendCDN(data, responseType);
   }
 
   async send(data: any) {
@@ -94,7 +95,7 @@ export default class BaseClient {
     ).data;
   }
 
-  async sendCDN(data: FormData) {
+  async sendCDN(data: FormData, responseType?: ResponseType) {
     let res;
 
     try {
@@ -105,6 +106,7 @@ export default class BaseClient {
           typeof data.getHeaders === "undefined"
             ? undefined
             : data.getHeaders(),
+        responseType,
       });
     } catch (catched) {
       const error = catched as AxiosError<any>;
