@@ -1,4 +1,3 @@
-import FormData from "form-data";
 import { Document } from "../types";
 import { formFromObj } from "../utils";
 import MethodBase from "./MethodBase";
@@ -19,7 +18,7 @@ export default class CDN extends MethodBase {
   async download(document: string | Document) {
     const form = formFromObj({
       action: "download",
-      document,
+      document: document instanceof Document ? document.id : document,
       ...this.client.sessionId().session_identification,
     });
 
