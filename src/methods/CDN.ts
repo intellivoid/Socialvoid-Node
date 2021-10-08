@@ -24,4 +24,14 @@ export default class CDN extends MethodBase {
 
     return this.client.invokeCDNRequest(form, "arraybuffer");
   }
+
+  async streamDownload(document: string | Document) {
+    const form = formFromObj({
+      action: "download",
+      document: document instanceof Document ? document.id : document,
+      ...this.client.sessionId().session_identification,
+    });
+
+    return this.client.invokeCDNRequest(form, "stream");
+  }
 }
